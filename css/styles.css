@@ -1,1 +1,132 @@
+/* ===== Paleta: negro + azul y violeta (análogos) =====
+   El ámbar (complementario del azul-violeta) se usa solo en avisos como "Agotado". */
+:root {
+  --fondo: #02020c;  --superficie: #0d0d18;  --borde: #262650;
+  --azul: #3b6df0;   --violeta: #7c4ddb;
+  --cian: #8fb4ff;   --lila: #b79bff;
+  --texto: #ececf8;  --texto-suave: #a3a3c2;
+  --degradado: linear-gradient(135deg, #3b6df0, #7c4ddb);
+  --aviso: #ffb454;
+  --radio: 12px;
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: "Sora", system-ui, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; }
+
+/* ===== Barra superior fija ===== */
+.barra { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 20px; background: rgba(2, 2, 12, 0.92); border-bottom: 1px solid var(--borde); backdrop-filter: blur(8px); }
+.marca { color: var(--texto); font-weight: 700; text-decoration: none; }
+.barra nav { display: flex; gap: 18px; margin-left: auto; margin-right: 16px; }
+.barra nav a { color: var(--texto-suave); text-decoration: none; padding: 4px 2px; border-bottom: 2px solid transparent; }
+.barra nav a:hover { color: var(--texto); }
+.barra nav a[aria-current="page"] { color: var(--texto); border-color: var(--violeta); }
+@media (max-width: 520px) { .barra .boton-mini { display: none; } .barra nav { margin-right: 0; } }
+
+/* ===== Botones ===== */
+.boton-principal, .boton-secundario, .boton-mini { display: inline-block; text-align: center; text-decoration: none;
+  border-radius: var(--radio); font-weight: 700; cursor: pointer; border: 0; font-family: inherit; font-size: 1rem; }
+.boton-principal { background: var(--degradado); color: #fff; padding: 14px 22px; transition: transform .15s, filter .15s; }
+.boton-principal:hover { filter: brightness(1.08); transform: translateY(-2px); }
+.boton-secundario { border: 1px solid var(--violeta); color: var(--texto); padding: 13px 22px; background: transparent; transition: background .15s; }
+.boton-secundario:hover { background: var(--violeta); }
+.boton-mini { background: var(--degradado); color: #fff; padding: 8px 14px; font-size: .875rem; }
+
+/* ===== Hero ===== */
+.hero { text-align: center; padding: 24px 20px 36px; max-width: 760px; margin: 0 auto;
+  background: radial-gradient(ellipse at 50% 0%, rgba(124,77,219,.28), transparent 65%); animation: entrada .6s ease-out; }
+.hero img { width: 100%; max-width: 640px; height: auto; display: block; margin: 0 auto;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect; }
+.solo-lectores { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hero p { color: var(--texto-suave); margin-top: 4px; }
+.acciones { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+.ventajas { list-style: none; padding: 0; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+.ventajas li { font-size: .8125rem; color: var(--lila); border: 1px solid var(--borde); border-radius: 999px; padding: 5px 12px; }
+@keyframes entrada { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* ===== Contenido ===== */
+.contenido { max-width: 1080px; margin: 0 auto; padding: 8px 20px 96px; display: grid; gap: 40px; }
+.bloque h2 { font-size: 1.25rem; margin-bottom: 14px; }
+
+/* ===== Página de inicio ===== */
+.texto-largo { color: var(--texto-suave); max-width: 62ch; font-size: 1.0625rem; }
+.tarjetas { list-style: none; padding: 0; display: grid; gap: 14px; }
+@media (min-width: 720px) { .tarjetas { grid-template-columns: repeat(3, 1fr); } }
+.tarjetas .tarjeta h3 { color: var(--texto); font-size: 1rem; margin-bottom: 6px; }
+.pasos { padding-left: 1.25rem; display: grid; gap: 8px; margin-bottom: 20px; color: var(--texto-suave); }
+.pasos li::marker { color: var(--lila); font-weight: 700; }
+
+/* ===== Página de productos ===== */
+.pagina-productos { padding-top: 32px; }
+.titulo-pagina { font-size: 1.75rem; margin-bottom: 14px; }
+
+/* ===== Buscador y filtros ===== */
+.buscador { width: 100%; padding: 13px 16px; border-radius: var(--radio); border: 1px solid var(--borde);
+  background: var(--superficie); color: var(--texto); font-family: inherit; font-size: 1rem; }
+.buscador:focus { border-color: var(--cian); }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding: 12px 0; }
+.chip { flex: none; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--borde); background: transparent;
+  color: var(--texto-suave); font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
+.chip:hover { border-color: var(--azul); color: var(--texto); }
+.chip[aria-pressed="true"] { background: var(--degradado); border-color: transparent; color: #fff; }
+
+/* ===== Tarjetas de producto ===== */
+.lista-productos { list-style: none; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .lista-productos { grid-template-columns: repeat(4, 1fr); } }
+.producto { background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); overflow: hidden;
+  cursor: pointer; display: flex; flex-direction: column; transition: transform .2s, border-color .2s; }
+.producto:hover { transform: translateY(-4px); border-color: var(--violeta); }
+.producto:focus-visible { outline: 2px solid var(--cian); }
+.foto { aspect-ratio: 1; width: 100%; object-fit: cover; display: block; }
+.foto-vacia { display: grid; place-items: center; background: #14112b; color: var(--lila); font-size: 3rem; font-weight: 700; }
+.info { padding: 12px; display: grid; gap: 4px; flex: 1; }
+.categoria { font-size: .75rem; color: var(--texto-suave); }
+.info h3 { font-size: .95rem; font-weight: 600; }
+.precio { color: var(--cian); font-weight: 700; }
+.ver-mas { font-size: .8125rem; color: var(--lila); margin-top: 4px; }
+.producto.agotado .foto { opacity: .45; }
+.etiqueta-agotado { justify-self: start; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #2e2210; color: var(--aviso); }
+.vacio { background: var(--superficie); border: 1px dashed var(--borde); border-radius: var(--radio); padding: 28px 16px; color: var(--texto-suave); text-align: center; }
+
+/* ===== Detalle (ventana emergente) ===== */
+.detalle { border: 1px solid var(--borde); border-radius: 16px; background: var(--fondo); color: var(--texto);
+  padding: 0; width: min(760px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow: auto; margin: auto; }
+.detalle[open] { animation: entrada .25s ease-out; }
+.detalle::backdrop { background: rgba(2, 8, 14, 0.8); }
+.detalle-cuerpo { display: grid; gap: 20px; padding: 20px; }
+@media (min-width: 720px) { .detalle-cuerpo { grid-template-columns: 1fr 1fr; } }
+.detalle .foto { border-radius: var(--radio); }
+.detalle-info { display: grid; gap: 12px; align-content: start; }
+.detalle-info h3 { font-size: 1.4rem; }
+.detalle-info .precio { font-size: 1.4rem; }
+.detalle-info p { color: var(--texto-suave); }
+.cerrar { justify-self: end; margin: 12px 12px 0 0; background: none; border: 1px solid var(--borde); color: var(--texto);
+  border-radius: 8px; padding: 6px 12px; font-family: inherit; cursor: pointer; }
+.detalle > .cerrar { display: block; margin-left: auto; }
+.cantidad { display: flex; align-items: center; gap: 12px; }
+.cantidad button { width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--borde); background: var(--superficie);
+  color: var(--texto); font-size: 1.25rem; cursor: pointer; }
+.cantidad button:hover { border-color: var(--azul); }
+.cantidad output { min-width: 28px; text-align: center; font-weight: 700; }
+.nota { font-size: .8125rem; }
+
+/* ===== Contacto ===== */
+.contacto { display: grid; gap: 20px; }
+.lista-redes { list-style: none; padding: 0; display: grid; gap: 10px; }
+.lista-redes a { display: block; padding: 14px 16px; background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: var(--radio); color: var(--texto); text-decoration: none; transition: border-color .15s; }
+.lista-redes a:hover { border-color: var(--azul); }
+.tarjeta { background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px; color: var(--texto-suave); }
+.tarjeta p + p { margin-top: 6px; }
+
+/* ===== Botón flotante de WhatsApp ===== */
+.flotante { position: fixed; right: 16px; bottom: 16px; z-index: 9; background: var(--degradado); color: #fff;
+  font-weight: 700; text-decoration: none; padding: 14px 20px; border-radius: 999px; box-shadow: 0 6px 24px rgba(124,77,219,.45); transition: transform .15s; }
+.flotante:hover { transform: scale(1.05); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 
