@@ -1,5 +1,4 @@
-// comun.js: piezas que usan las DOS páginas (barra, botón flotante, contacto).
-// Requiere config.js cargado antes.
+
 
 // ---------- Funciones puras ----------
 
@@ -42,6 +41,15 @@ function pintarBarra(negocio, whatsapp, paginaActual) {
   );
 }
 
+function pintarEnvioGratis(mercadoLibre) {
+  const contenedor = document.getElementById("envio");
+  contenedor.append(
+    crearElemento("h2", {}, mercadoLibre.titulo),
+    crearElemento("p", {}, mercadoLibre.texto),
+    crearElemento("a", { class: "boton-principal", href: mercadoLibre.url, target: "_blank", rel: "noopener" }, mercadoLibre.boton)
+  );
+}
+
 function pintarFlotante(whatsapp) {
   const boton = document.getElementById("flotante");
   boton.textContent = "WhatsApp";
@@ -50,13 +58,21 @@ function pintarFlotante(whatsapp) {
   boton.rel = "noopener";
 }
 
-function pintarContacto(redes) {
+function pintarContacto(redes, horario) {
   const contenedor = document.getElementById("contacto");
+  const columnaRedes = crearElemento("div");
   const listaRedes = crearElemento("ul", { class: "lista-redes" });
   redes.forEach((red) => {
     const item = crearElemento("li");
     item.append(crearElemento("a", { href: red.url, target: "_blank", rel: "noopener" }, red.nombre));
     listaRedes.append(item);
   });
-  contenedor.append(crearElemento("h2", {}, "Síguenos"), listaRedes);
+  columnaRedes.append(crearElemento("h2", {}, "Síguenos"), listaRedes);
+
+  const columnaHorario = crearElemento("div");
+  const tarjeta = crearElemento("div", { class: "tarjeta" });
+  tarjeta.append(crearElemento("p", {}, horario.dias), crearElemento("p", {}, horario.ubicacion));
+  columnaHorario.append(crearElemento("h2", {}, "Horario y ubicación"), tarjeta);
+
+  contenedor.append(columnaRedes, columnaHorario);
 }
