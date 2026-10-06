@@ -1,4 +1,4 @@
-// tienda.js: página de productos. Requiere config.js, data.js y comun.js antes.
+
 
 // ---------- Funciones puras ----------
 
@@ -51,7 +51,7 @@ function crearTarjeta(producto, alAbrir) {
   return tarjeta;
 }
 
-function abrirDetalle(producto, whatsapp) {
+function abrirDetalle(producto, whatsapp, mercadoLibre) {
   const dialogo = document.getElementById("detalle");
   let cantidad = 1;
 
@@ -88,7 +88,13 @@ function abrirDetalle(producto, whatsapp) {
   );
   if (producto.agotado) info.append(crearElemento("span", { class: "etiqueta-agotado" }, "Agotado por ahora"));
   else info.append(selector);
-  info.append(contacto, crearElemento("p", { class: "nota" }, "Te responde el vendedor directamente por WhatsApp."));
+  info.append(contacto);
+  if (!producto.agotado) {
+    info.append(
+      crearElemento("a", { class: "boton-secundario", href: mercadoLibre.url, target: "_blank", rel: "noopener" }, "Comprar con envío gratis (Mercado Libre)"),
+      crearElemento("p", { class: "nota" }, "El envío gratis aplica solo comprando por Mercado Libre. Para dudas, el vendedor te responde por WhatsApp.")
+    );
+  }
 
   const cuerpo = crearElemento("div", { class: "detalle-cuerpo" });
   cuerpo.append(crearFoto(producto), info);
@@ -98,7 +104,7 @@ function abrirDetalle(producto, whatsapp) {
   dialogo.showModal();
 }
 
-function pintarProductos(productos, whatsapp) {
+function pintarProductos(productos, whatsapp, mercadoLibre) {
   const contenedor = document.getElementById("productos");
   contenedor.append(crearElemento("h1", { class: "titulo-pagina" }, "Productos"));
 
@@ -115,7 +121,7 @@ function pintarProductos(productos, whatsapp) {
 
   function actualizar() {
     const visibles = filtrarProductos(productos, estado.busqueda, estado.categoria);
-    lista.replaceChildren(...visibles.map((p) => crearTarjeta(p, (prod) => abrirDetalle(prod, whatsapp))));
+    lista.replaceChildren(...visibles.map((p) => crearTarjeta(p, (prod) => abrirDetalle(prod, whatsapp, mercadoLibre))));
     sinResultados.hidden = visibles.length > 0;
   }
 
@@ -145,8 +151,9 @@ async function iniciar() {
   const productos = await obtenerProductos();
 
   pintarBarra(CONFIG.negocio, CONFIG.whatsapp, "productos");
-  pintarProductos(productos, CONFIG.whatsapp);
-  pintarContacto(CONFIG.redes);
+  pintarProductos(productos, CONFIG.whatsapp, CONFIG.mercadoLibre);
+  pintarEnvioGratis(CONFIG.mercadoLibre);
+  pintarContacto(CONFIG.redes, CONFIG.horario);
   pintarFlotante(CONFIG.whatsapp);
   activarCierreDetalle();
 }
