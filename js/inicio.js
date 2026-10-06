@@ -1,3 +1,4 @@
+
 // inicio.js: página de presentación. Requiere config.js y comun.js antes.
 
 function pintarEncabezado(negocio, whatsapp) {
@@ -54,7 +55,8 @@ function iniciar() {
   pintarSobreMi(CONFIG.sobre);
   pintarQueHago(CONFIG.queHago);
   pintarPasos(CONFIG.pasos);
-  pintarContacto(CONFIG.redes);
+  pintarEnvioGratis(CONFIG.mercadoLibre);
+  pintarContacto(CONFIG.redes, CONFIG.horario);
   pintarFlotante(CONFIG.whatsapp);
 }
 
