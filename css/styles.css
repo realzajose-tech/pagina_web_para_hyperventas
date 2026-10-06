@@ -1,3 +1,5 @@
+
+
 /* ===== Paleta: negro + azul y violeta (análogos) =====
    El ámbar (complementario del azul-violeta) se usa solo en avisos como "Agotado". */
 :root {
@@ -114,8 +116,15 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 .cantidad output { min-width: 28px; text-align: center; font-weight: 700; }
 .nota { font-size: .8125rem; }
 
+/* ===== Aviso de envío gratis ===== */
+.envio { background: var(--superficie); border: 1px solid var(--violeta); border-radius: 16px; padding: 28px 20px;
+  display: grid; gap: 12px; justify-items: center; text-align: center; }
+.envio h2 { margin: 0; }
+.envio p { color: var(--texto-suave); max-width: 56ch; }
+
 /* ===== Contacto ===== */
 .contacto { display: grid; gap: 20px; }
+@media (min-width: 720px) { .contacto { grid-template-columns: 1fr 1fr; } }
 .lista-redes { list-style: none; padding: 0; display: grid; gap: 10px; }
 .lista-redes a { display: block; padding: 14px 16px; background: var(--superficie); border: 1px solid var(--borde);
   border-radius: var(--radio); color: var(--texto); text-decoration: none; transition: border-color .15s; }
@@ -129,4 +138,3 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 .flotante:hover { transform: scale(1.05); }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
-
