@@ -1,4 +1,6 @@
 
+
+// true = muestra productos de ejemplo sin usar Supabase (solo para probar el diseño).
 const MODO_DEMO = false;
 
 const PRODUCTOS_DEMO = [
@@ -30,9 +32,11 @@ async function obtenerProductos() {
   if (!url || !anonKey) return [];
 
   try {
-    const respuesta = await fetch(`${url}/rest/v1/productos?select=*&order=creado.desc`, {
-      headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` }
-    });
+    // Las claves nuevas (sb_publishable_...) no son JWT: van solo en "apikey".
+    // Las claves viejas (anon) también llevan Authorization.
+    const headers = { apikey: anonKey };
+    if (!anonKey.startsWith("sb_")) headers.Authorization = `Bearer ${anonKey}`;
+    const respuesta = await fetch(`${url}/rest/v1/productos?select=*&order=creado.desc`, { headers });
     if (!respuesta.ok) throw new Error(`Supabase respondió ${respuesta.status}`);
     const filas = await respuesta.json();
     return filas.map(normalizarProducto);
