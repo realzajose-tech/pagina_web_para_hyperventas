@@ -1,9 +1,12 @@
 
-
 // ---------- Funciones puras ----------
 
 function crearEnlaceWhatsApp(numero, mensaje) {
   return `https://wa.me/${String(numero).replace(/\D/g, "")}?text=${encodeURIComponent(mensaje)}`;
+}
+
+function formatearPrecio(precio) {
+  return `$${Number(precio).toLocaleString("es-MX", { minimumFractionDigits: 2 })}`;
 }
 
 // ---------- Ayudantes para crear elementos ----------
