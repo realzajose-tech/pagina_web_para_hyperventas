@@ -140,3 +140,44 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .hero img { animation: flotar 4s ease-in-out infinite !important; } }
+
+/* ===== Etiqueta de pocas existencias ===== */
+.pocas { justify-self: start; font-size: .75rem; font-weight: 700; color: var(--aviso); }
+
+/* ===== Panel de administrador ===== */
+.login { max-width: 360px; margin: 48px auto; display: grid; gap: 12px; }
+.panel-encabezado { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.panel-encabezado .titulo-pagina { margin: 0; }
+.panel-encabezado .acciones { margin-top: 0; }
+.boton-chico { padding: 9px 14px; font-size: .875rem; border-radius: 8px; }
+.boton-principal.boton-chico { display: inline-block; }
+.boton-peligro { background: transparent; border: 1px solid #b4424f; color: #ff8c97; font-family: inherit; font-weight: 700; cursor: pointer; }
+.boton-peligro:hover { background: #b4424f; color: #fff; }
+.lista-admin { list-style: none; padding: 0; display: grid; gap: 12px; }
+.fila-admin { display: grid; grid-template-columns: 64px 1fr; gap: 12px 14px; align-items: center; padding: 14px;
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); }
+@media (min-width: 820px) { .fila-admin { grid-template-columns: 64px 1fr auto; } }
+.mini { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; font-size: 1.5rem; }
+.fila-datos { display: grid; gap: 2px; min-width: 0; }
+.fila-datos strong { overflow-wrap: anywhere; }
+.estado { justify-self: start; font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: #17233f; color: var(--cian); }
+.estado.estado-agotado { background: #2e2210; color: var(--aviso); }
+.fila-controles { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+@media (min-width: 820px) { .fila-controles { grid-column: auto; } }
+.campo-fila { display: flex; align-items: center; gap: 8px; color: var(--texto-suave); font-size: .875rem; }
+.entrada-cantidad { width: 80px; padding: 8px; border-radius: 8px; border: 1px solid var(--borde); background: var(--fondo); color: var(--texto); font-family: inherit; font-size: 1rem; }
+.campo-fila input[type="checkbox"], .campo-marca input { width: 18px; height: 18px; accent-color: var(--violeta); }
+
+/* Formulario de producto */
+.formulario { display: grid; gap: 14px; padding: 8px 20px 24px; }
+.campo { display: grid; gap: 6px; color: var(--texto-suave); font-size: .875rem; }
+.campo input, .campo textarea { padding: 12px 14px; border-radius: var(--radio); border: 1px solid var(--borde);
+  background: var(--superficie); color: var(--texto); font-family: inherit; font-size: 1rem; }
+.campo input:focus, .campo textarea:focus { border-color: var(--cian); }
+.campo-marca { display: flex; align-items: center; gap: 10px; color: var(--texto); }
+.vista-previa { width: 120px; height: 120px; object-fit: cover; border-radius: var(--radio); border: 1px solid var(--borde); }
+
+/* Avisos */
+.aviso { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 20; padding: 12px 20px; border-radius: 999px; font-weight: 600; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+.aviso.ok { background: #14341f; color: #8be3a7; border: 1px solid #1f6a3a; }
+.aviso.error { background: #3a1419; color: #ff9aa5; border: 1px solid #8a2a36; }
