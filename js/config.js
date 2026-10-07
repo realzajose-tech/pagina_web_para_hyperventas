@@ -36,7 +36,7 @@ const CONFIG = {
 
   whatsapp: {
    
-    numero: "+58 4128791202",
+    numero: "+58 4243248120",
     mensaje: "Hola, estoy interesado en sus productos"
   },
 
