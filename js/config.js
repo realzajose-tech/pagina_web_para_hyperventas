@@ -41,7 +41,7 @@ const CONFIG = {
   },
 
   redes: [
-    { nombre: "Instagram", url: "https://www.instagram.com/hyperventasvzla/ },
+    { nombre: "Instagram", url: "https://www.instagram.com/hyperventasvzla },
     { nombre: "Facebook",  url: "https://facebook.com/tu_pagina" },
     { nombre: "TikTok",    url: "https://tiktok.com/@tu_usuario" }
   ],
