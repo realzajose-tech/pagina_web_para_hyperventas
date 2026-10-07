@@ -1,4 +1,6 @@
 
+// ===== ÚNICO archivo que necesitas editar =====
+// Cambia los textos entre comillas. No borres las comas ni las llaves.
 
 const CONFIG = {
   negocio: {
@@ -31,6 +33,12 @@ const CONFIG = {
     titulo: "Envío gratis comprando por Mercado Libre",
     texto: "El envío gratis aplica solo si compras por Mercado Libre. Toca el botón, realiza tu compra en nuestra tienda y recibe tu pedido sin costo de envío.",
     boton: "Comprar en Mercado Libre"
+  },
+
+
+  supabase: {
+    url: "",
+    anonKey: ""
   },
 
   whatsapp: {
