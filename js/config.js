@@ -47,7 +47,7 @@ const CONFIG = {
   ],
 
   horario: {
-    dias: "Lunes a sábado, 10:00 a 19:00",
+    dias: "Lunes a sábado, 10:00 a 19:00"
     
   }
 };
