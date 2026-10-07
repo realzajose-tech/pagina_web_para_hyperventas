@@ -1,6 +1,4 @@
 
-// ===== ÚNICO archivo que necesitas editar =====
-// Cambia los textos entre comillas. No borres las comas ni las llaves.
 
 const CONFIG = {
   negocio: {
