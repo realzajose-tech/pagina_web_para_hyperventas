@@ -1,25 +1,43 @@
-// data.js: única fuente de productos de la página.
-// Cuando conectes la base de datos, cambia solo obtenerProductos(); main.js no se toca.
-//
-// Forma de cada producto:
-// { id: 1, nombre: "...", categoria: "...", precio: 199.99,
-//   descripcion: "...", imagen: "assets/p1.png" (o "" si no hay), agotado: false }
 
-// true = muestra productos de ejemplo para probar la tienda. false = lista vacía.
-const MODO_DEMO = true;
+const MODO_DEMO = false;
 
 const PRODUCTOS_DEMO = [
-  { id: 1, nombre: "Audífonos inalámbricos (demo)", categoria: "Audio", precio: 799, descripcion: "Producto de ejemplo. Aquí va la descripción real: material, medidas, garantía.", imagen: "", agotado: false },
-  { id: 2, nombre: "Bocina portátil (demo)", categoria: "Audio", precio: 649, descripcion: "Producto de ejemplo con sonido claro y batería de larga duración.", imagen: "", agotado: false },
-  { id: 3, nombre: "Cargador rápido (demo)", categoria: "Accesorios", precio: 299, descripcion: "Producto de ejemplo compatible con la mayoría de celulares.", imagen: "", agotado: false },
-  { id: 4, nombre: "Funda protectora (demo)", categoria: "Accesorios", precio: 149, descripcion: "Producto de ejemplo. Se vende por pieza.", imagen: "", agotado: true },
-  { id: 5, nombre: "Lámpara de escritorio (demo)", categoria: "Hogar", precio: 459, descripcion: "Producto de ejemplo con luz regulable.", imagen: "", agotado: false },
-  { id: 6, nombre: "Organizador de cables (demo)", categoria: "Hogar", precio: 99, descripcion: "Producto de ejemplo para mantener tu espacio ordenado.", imagen: "", agotado: false }
+  { id: 1, nombre: "Bolsas para pollo (demo)", categoria: "Bolsas", precio: 12, descripcion: "Producto de ejemplo.", imagen: "", cantidad: 3, agotado: false, enlaceML: "" },
+  { id: 2, nombre: "Clipadora manual (demo)", categoria: "Clipadoras", precio: 45, descripcion: "Producto de ejemplo.", imagen: "", cantidad: 20, agotado: false, enlaceML: "" },
+  { id: 3, nombre: "Producto agotado (demo)", categoria: "Bolsas", precio: 9, descripcion: "Producto de ejemplo.", imagen: "", cantidad: 0, agotado: true, enlaceML: "" }
 ];
 
+// Convierte una fila de la base de datos al formato que usa la tienda
+function normalizarProducto(fila) {
+  const cantidad = Number(fila.cantidad) || 0;
+  return {
+    id: fila.id,
+    nombre: fila.nombre,
+    categoria: fila.categoria || "",
+    precio: Number(fila.precio),
+    descripcion: fila.descripcion || "",
+    imagen: fila.imagen || "",
+    cantidad,
+    agotado: Boolean(fila.agotado) || cantidad <= 0, // sin existencias = agotado
+    enlaceML: fila.enlace_ml || ""
+  };
+}
+
 async function obtenerProductos() {
-  // FUTURO: aquí va la llamada a la base de datos, por ejemplo:
-  // const respuesta = await fetch("URL_DE_TU_BASE_DE_DATOS");
-  // return await respuesta.json();
-  return MODO_DEMO ? PRODUCTOS_DEMO : [];
+  if (MODO_DEMO) return PRODUCTOS_DEMO;
+
+  const { url, anonKey } = CONFIG.supabase;
+  if (!url || !anonKey) return [];
+
+  try {
+    const respuesta = await fetch(`${url}/rest/v1/productos?select=*&order=creado.desc`, {
+      headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` }
+    });
+    if (!respuesta.ok) throw new Error(`Supabase respondió ${respuesta.status}`);
+    const filas = await respuesta.json();
+    return filas.map(normalizarProducto);
+  } catch (error) {
+    console.error("No se pudieron cargar los productos:", error);
+    return [];
+  }
 }
