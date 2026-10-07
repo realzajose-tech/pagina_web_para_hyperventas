@@ -2,10 +2,6 @@
 
 // ---------- Funciones puras ----------
 
-function formatearPrecio(precio) {
-  return `$${Number(precio).toLocaleString("es-MX", { minimumFractionDigits: 2 })}`;
-}
-
 function obtenerCategorias(productos) {
   return ["Todos", ...new Set(productos.map((p) => p.categoria).filter(Boolean))];
 }
@@ -42,6 +38,9 @@ function crearTarjeta(producto, alAbrir) {
     info.append(crearElemento("span", { class: "etiqueta-agotado" }, "Agotado"));
   } else {
     info.append(crearElemento("span", { class: "ver-mas" }, "Ver y contactar"));
+    if (producto.cantidad > 0 && producto.cantidad <= 5) {
+      info.append(crearElemento("span", { class: "pocas" }, `Quedan ${producto.cantidad}`));
+    }
   }
   tarjeta.append(crearFoto(producto), info);
   tarjeta.addEventListener("click", () => alAbrir(producto));
@@ -68,7 +67,8 @@ function abrirDetalle(producto, whatsapp, mercadoLibre) {
     contacto.href = crearEnlaceWhatsApp(whatsapp.numero, mensajeProducto(producto, cantidad));
   }
   function cambiarCantidad(delta) {
-    cantidad = Math.min(20, Math.max(1, cantidad + delta));
+    const tope = producto.cantidad > 0 ? Math.min(20, producto.cantidad) : 20;
+    cantidad = Math.min(tope, Math.max(1, cantidad + delta));
     actualizar();
   }
 
@@ -91,7 +91,7 @@ function abrirDetalle(producto, whatsapp, mercadoLibre) {
   info.append(contacto);
   if (!producto.agotado) {
     info.append(
-      crearElemento("a", { class: "boton-secundario", href: mercadoLibre.url, target: "_blank", rel: "noopener" }, "Comprar con envío gratis (Mercado Libre)"),
+      crearElemento("a", { class: "boton-secundario", href: producto.enlaceML || mercadoLibre.url, target: "_blank", rel: "noopener" }, "Comprar con envío gratis (Mercado Libre)"),
       crearElemento("p", { class: "nota" }, "El envío gratis aplica solo comprando por Mercado Libre. Para dudas, el vendedor te responde por WhatsApp.")
     );
   }
