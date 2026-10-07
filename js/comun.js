@@ -3,7 +3,7 @@
 // ---------- Funciones puras ----------
 
 function crearEnlaceWhatsApp(numero, mensaje) {
-  return `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  return `https://wa.me/${String(numero).replace(/\D/g, "")}?text=${encodeURIComponent(mensaje)}`;
 }
 
 // ---------- Ayudantes para crear elementos ----------
@@ -71,8 +71,9 @@ function pintarContacto(redes, horario) {
 
   const columnaHorario = crearElemento("div");
   const tarjeta = crearElemento("div", { class: "tarjeta" });
-  tarjeta.append(crearElemento("p", {}, horario.dias), crearElemento("p", {}, horario.ubicacion));
-  columnaHorario.append(crearElemento("h2", {}, "Horario y ubicación"), tarjeta);
+  tarjeta.append(crearElemento("p", {}, horario.dias));
+  if (horario.ubicacion) tarjeta.append(crearElemento("p", {}, horario.ubicacion));
+  columnaHorario.append(crearElemento("h2", {}, horario.ubicacion ? "Horario y ubicación" : "Horario de atención"), tarjeta);
 
   contenedor.append(columnaRedes, columnaHorario);
 }
