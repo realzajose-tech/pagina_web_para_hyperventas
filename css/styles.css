@@ -41,9 +41,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
   mask-composite: intersect; }
-/* Logo flotando: sube y baja suavemente sin parar */
-.hero img { animation: flotar 4s ease-in-out infinite; will-change: transform; }
-@keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+/* Logo: al pasar el mouse "flota" hacia arriba y se ilumina */
+.hero img { transition: transform .5s ease, filter .5s ease; }
+.hero img:hover { transform: translateY(-14px) scale(1.04); filter: brightness(1.2); }
 .solo-lectores { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .hero p { color: var(--texto-suave); margin-top: 4px; }
 .acciones { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
