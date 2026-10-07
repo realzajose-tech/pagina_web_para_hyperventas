@@ -18,10 +18,12 @@ Sitio de dos páginas: **Inicio** (quién soy, qué hago, cómo comprar) y **Pro
 | `js/comun.js` | Barra, botón flotante y contacto (las dos páginas) |
 | `js/inicio.js` | Arma la página de inicio |
 | `js/tienda.js` | Arma la tienda con `data.js` |
+| `admin.html` + `js/admin.js` | Panel privado: agregar, editar, existencias, agotado y eliminar |
+| `supabase/setup.sql` | Crea la tabla, la seguridad y la carpeta de fotos en Supabase |
 | `assets/logo.png` | Logo |
 
 ## Paleta
 Fondo negro `#050508` con azul `#3b6df0` y violeta `#7c4ddb` (análogos) en degradado para los botones de contacto. Ámbar `#ffb454` (complementario) solo para avisos como "Agotado".
 
 ## Futuro
-Cuando llegue la base de datos, cambia solo `obtenerProductos()` en `js/data.js` y pon `MODO_DEMO = false`.
+Los productos viven en Supabase. Llena `supabase.url` y `supabase.anonKey` en `js/config.js`, ejecuta `supabase/setup.sql` y entra a `admin.html`.
