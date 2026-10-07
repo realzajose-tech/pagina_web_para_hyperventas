@@ -1,6 +1,4 @@
 
-// ===== ÚNICO archivo que necesitas editar =====
-// Cambia los textos entre comillas. No borres las comas ni las llaves.
 
 const CONFIG = {
   negocio: {
@@ -35,10 +33,12 @@ const CONFIG = {
     boton: "Comprar en Mercado Libre"
   },
 
-
+  // Supabase: copia estos 2 datos desde Supabase → Project Settings → API Keys
+  // Usa SOLO la clave pública ("Publishable key", empieza con sb_publishable_..., o la "anon").
+  // NUNCA ponger aquí la clave "secret" ni la "service_role": esas sí dan control total a cualquiera.
   supabase: {
-    url: "",
-    anonKey: ""
+    url: "https://fiuutbsfaamrwvzetozv.supabase.co",
+    anonKey: "sb_publishable_O9Nr6vY5brxxb1lh9swtRg_tVeX-0h8"
   },
 
   whatsapp: {
