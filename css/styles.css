@@ -41,9 +41,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
   mask-composite: intersect; }
-/* Logo: al pasar el mouse "flota" hacia arriba y se ilumina */
-.hero img { transition: transform .5s ease, filter .5s ease; }
-.hero img:hover { transform: translateY(-14px) scale(1.04); filter: brightness(1.2); }
+/* Logo flotando: sube y baja suavemente sin parar */
+.hero img { animation: flotar 4s ease-in-out infinite; }
+@keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 .solo-lectores { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .hero p { color: var(--texto-suave); margin-top: 4px; }
 .acciones { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
@@ -138,4 +138,5 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   font-weight: 700; text-decoration: none; padding: 14px 20px; border-radius: 999px; box-shadow: 0 6px 24px rgba(124,77,219,.45); transition: transform .15s; }
 .flotante:hover { transform: scale(1.05); }
 
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .hero img { animation: flotar 4s ease-in-out infinite !important; } }
